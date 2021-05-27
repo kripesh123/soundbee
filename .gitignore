@@ -1,0 +1,7 @@
+node_modules
+docs
+build
+# Public Content
+public/content/*
+dist/*
+logs/*.log
