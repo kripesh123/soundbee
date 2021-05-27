@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 import AuthHeader from './lib/auth-header';
 import serverSettings from './lib/settings';
+import models from './lib/models'
 import AudioBeeClient from './client-audiobee/index';
 
 // cost factor for hashes
@@ -68,7 +69,7 @@ ajaxRouter.post('/register', async (req, res, next) => {
 				return false;
 			}
 
-			// check once if customer email is existig in database
+			// check once if worker email is existig in database
 			filter.email = eMail;
 			await api.workers.list(filter).then(({ status, json }) => {
 				if (json.data.length > 0) {
@@ -125,6 +126,54 @@ ajaxRouter.post('/register', async (req, res, next) => {
 			registerWorker();
 		});
 	}
+})
+
+ajaxRouter.post('/login', async (req, res, next) => {
+	const workerData = {
+		token: '',
+		authenticated: false,
+		loggedin_failed: false,
+		worker_settings: null,
+	};
+
+	
+	// check if worker exists in database and grant or denie access
+	const result = await await models.Worker.findOne({
+		where: {email: req.body.email.toLowerCase()},
+		limit: 1
+	});
+
+	if (!result) {
+		api.workers.list().then(({ status, json }) => {
+			workerData.loggedin_failed = true;
+			let objJsonB64 = JSON.stringify(workerData);
+			objJsonB64 = Buffer.from(objJsonB64).toString('base64');
+			return res.status(status).send(JSON.stringify(objJsonB64));
+		});
+		return;
+	}
+	const workerPassword = result.password;
+	const inputPassword = req.body.password;
+	bcrypt.compare(inputPassword, workerPassword, async (err, out) => {
+		if (out == true) {
+			workerData.token = AuthHeader.encodeUserLoginAuth(result.id);
+			workerData.authenticated = true;
+
+			await api.workers.retrieve(result.id).then(({ status, json }) => {
+				workerData.worker_settings = json;
+				workerData.worker_settings.password = '*******';
+
+				let objJsonB64 = JSON.stringify(workerData);
+				objJsonB64 = Buffer.from(objJsonB64).toString('base64');
+				return res.status(status).send(JSON.stringify(objJsonB64));	
+			});
+			return true;
+		}
+		workerData.loggedin_failed = true;
+		let objJsonB64 = JSON.stringify(workerData);
+		objJsonB64 = Buffer.from(objJsonB64).toString('base64');
+		res.status(200).send(JSON.stringify(objJsonB64));
+	});
 })
 
 export default ajaxRouter;

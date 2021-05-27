@@ -10,5 +10,9 @@ export default class Workers {
 
     create(data) {
 		return this.client.post(this.resourceUrl, data);
+    }
+    
+    retrieve(id, filter) {
+		return this.client.get(`${this.resourceUrl}/${id}`, filter);
 	}
 }
