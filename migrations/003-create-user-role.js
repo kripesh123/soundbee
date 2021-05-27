@@ -9,11 +9,19 @@ module.exports = {
             },
             userId: {
                 allowNull: false,
-                type: Sequelize.STRING
+                references: {
+                    model: 'users',
+                    key: 'id'
+                  },
+                type: Sequelize.INTEGER
             },
             roleId: {
                 allowNull: false,
-                type: Sequelize.TEXT
+                references: {
+                    model: 'roles',
+                    key: 'id'
+                  },
+                type: Sequelize.INTEGER
             },
             isActive:{
                 allowNull: false,
