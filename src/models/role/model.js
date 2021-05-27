@@ -2,9 +2,10 @@
 
 // User
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('roles', {
+    let Role = sequelize.define('roles', {
         name: {
             type: DataTypes.STRING
         },
     })
+    return Role;
 }

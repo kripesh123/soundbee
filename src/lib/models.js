@@ -3,9 +3,9 @@ import Sequelize from 'sequelize';
 import db from './database'
 
 const models = {
-    // User: databaseConnection.import(__dirname + '../models/user/model'),
-    // Role: databaseConnection.import(__dirname + '../models/role/model'),
-    // UserRole: databaseConnection.import(__dirname + '../models/user-role/model'),
+     User: db.import('../models/user/model'),
+     Role: db.import('../models/role/model'),
+     UserRole: db.import('../models/user-role/model'),
      Worker: db.import('../models/worker/model'),
 }
 

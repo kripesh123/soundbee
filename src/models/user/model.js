@@ -2,7 +2,7 @@
 
 // User
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('users', {
+    let User = sequelize.define('users', {
         name: {
             type: DataTypes.STRING
         },
@@ -16,4 +16,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN
         }
     })
+
+    return User;
 }

@@ -1,3 +1,4 @@
+import SecurityUserService from '../services/security/users'
 class SecurityUsersRoute {
     constructor(router) {
 		this.router = router;
@@ -10,10 +11,10 @@ class SecurityUsersRoute {
 
     async sendUserToken(req, res, next) {
 		try {
-			const data = await SecurityTokensService.sendUserToken(req);
-			return res.send(data);
+			await SecurityUserService.sendUserToken(req, res, next);
 		} catch (err) {
 			return next(err);
 		}
 	}
 }
+export default SecurityUsersRoute;

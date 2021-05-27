@@ -2,7 +2,7 @@
 
 // User
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('user_roles', {
+    let UserRole = sequelize.define('user_roles', {
         userId: {
             type: DataTypes.STRING
         },
@@ -10,4 +10,9 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
     })
+    UserRole.associate = function(models) {
+        UserRole.belongsTo(models.User)
+        UserRole.belongsTo(models.Role)
+      }
+    return UserRole
 }

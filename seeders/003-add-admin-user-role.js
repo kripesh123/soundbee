@@ -12,7 +12,7 @@ module.exports = {
             },
             {
                 userId:2,
-                roleId:2,
+                roleId:1,
                 isActive:true,
                 createdAt: new Date(),
                 updatedAt: new Date()
