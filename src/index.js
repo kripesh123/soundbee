@@ -8,6 +8,9 @@ import winston from 'winston';
 import logger from './lib/logger';
 import security from './lib/security';
 import settings from './lib/settings';
+import apiRouter from './apiRouter';
+import ajaxRouter from './ajaxRouter';
+
 
 const app = express();
 
@@ -45,8 +48,8 @@ app.use(responseTime());
 app.use(cookieParser(settings.cookieSecretKey));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use('/ajax',);
-// app.get('/api',);
+app.use('/ajax', ajaxRouter);
+app.use('/api', apiRouter);
 app.use(logger.sendResponse);
 const server = app.listen(settings.apiListenPort, () => {
 	const serverAddress = server.address();
