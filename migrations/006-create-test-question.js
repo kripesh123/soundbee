@@ -1,26 +1,26 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('user_roles', {
+        return queryInterface.createTable('test-questions', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            userId: {
+            testId: {
                 allowNull: false,
                 references: {
-                    model: 'users',
+                    model: 'tests',
                     key: 'id'
                   },
                 type: Sequelize.INTEGER
             },
-            roleId: {
+            content: {
                 allowNull: false,
-                references: {
-                    model: 'roles',
-                    key: 'id'
-                  },
+                type: Sequelize.STRING
+            },
+            score: {
+                allowNull: false,
                 type: Sequelize.INTEGER
             },
             isActive:{
@@ -40,6 +40,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('user_roles')
+        return queryInterface.dropTable('test-questions')
     }
 }

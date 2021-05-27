@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('user_roles', {
+        return queryInterface.createTable('tests', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -15,12 +15,28 @@ module.exports = {
                   },
                 type: Sequelize.INTEGER
             },
-            roleId: {
+            name: {
                 allowNull: false,
-                references: {
-                    model: 'roles',
-                    key: 'id'
-                  },
+                type: Sequelize.STRING
+            },
+            slug: {
+                allowNull: false,
+                type: Sequelize.STRING
+            },
+            description: {
+                allowNull: false,
+                type: Sequelize.TEXT
+            },
+            metaTitle: {
+                allowNull: true,
+                type: Sequelize.TEXT
+            },
+            metaDescription: {
+                allowNull: true,
+                type: Sequelize.TEXT
+            },
+            score: {
+                allowNull: false,
                 type: Sequelize.INTEGER
             },
             isActive:{
@@ -40,6 +56,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('user_roles')
+        return queryInterface.dropTable('tests')
     }
 }
