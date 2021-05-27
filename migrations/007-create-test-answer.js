@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('test_questions', {
+        return queryInterface.createTable('test_answers', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -15,13 +15,22 @@ module.exports = {
                   },
                 type: Sequelize.INTEGER
             },
+            questionId: {
+                allowNull: false,
+                references: {
+                    model: 'test_questions',
+                    key: 'id'
+                  },
+                type: Sequelize.INTEGER
+            },
             content: {
                 allowNull: false,
                 type: Sequelize.STRING
             },
-            score: {
+            isCorrect:{
                 allowNull: false,
-                type: Sequelize.INTEGER
+                defaultValue:false,
+                type: Sequelize.BOOLEAN
             },
             isActive:{
                 allowNull: false,
@@ -40,6 +49,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('test_questions')
+        return queryInterface.dropTable('test_answers')
     }
 }
