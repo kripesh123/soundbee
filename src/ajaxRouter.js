@@ -19,6 +19,9 @@ const api = new AudioBeeClient({
 	apiToken: STORE_ACCESS_TOKEN
 });
 
+const TESTS_CACHE_CONTROL = 'public, max-age=60';
+const TEST_DETAILS_CACHE_CONTROL = 'public, max-age=60';
+
 ajaxRouter.post('/register', async (req, res, next) => {
 
     // set data for response
@@ -175,5 +178,25 @@ ajaxRouter.post('/login', async (req, res, next) => {
 		res.status(200).send(JSON.stringify(objJsonB64));
 	});
 })
+
+ajaxRouter.get('/tests', (req, res) => {
+	const filter = req.query;
+	filter.isActive = true;
+	api.tests.list(filter).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', TESTS_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/tests/:id', (req, res) => {
+	api.tests.retrieve(req.params.id).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', TEST_DETAILS_CACHE_CONTROL)
+			.send(json)
+	);
+});
 
 export default ajaxRouter;

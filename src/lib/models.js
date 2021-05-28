@@ -3,10 +3,12 @@ import Sequelize from 'sequelize';
 import db from './database'
 
 const models = {
-     User: db.import('../models/user/model'),
-     Role: db.import('../models/role/model'),
-     UserRole: db.import('../models/user-role/model'),
-     Worker: db.import('../models/worker/model'),
+     User: db.import('../models/user'),
+     Role: db.import('../models/role'),
+     UserRole: db.import('../models/userRole'),
+     Worker: db.import('../models/worker'),
+     Test: db.import('../models/test'),
+     TestQuestion: db.import('../models/testQuestion')
 }
 
 Object.keys(models).forEach(modelName => {

@@ -23,26 +23,25 @@ class WorkerService {
 		return filter;
 	}
 
-    getWorkers(params = {}) {
+    async getWorkers(params = {}) {
         const filter = this.getFilter(params);
         const limit = parse.getNumberIfPositive(params.limit) || 100;
 		const offset = parse.getNumberIfPositive(params.offset) || 0;
-        return Promise.all([
-            models.Worker.findAll({ 
+        const [customers, customersCount] = await Promise.all([
+            models.Worker.findAll({
                 where: filter,
                 limit,
                 offset,
                 order: [['id', 'DESC']]
             }),
             models.Worker.count()
-        ]).then(([customers, customersCount]) => {
-            const result = {
-                total_count: customersCount,
-                has_more: offset + customers.length < customersCount,
-				data: customers
-            };
-            return result;
-        });
+        ]);
+        const result = {
+            total_count: customersCount,
+            has_more: offset + customers.length < customersCount,
+            data: customers
+        };
+        return result;
     }
 
     async addWorker(data) {
@@ -68,13 +67,12 @@ class WorkerService {
 
     }
 
-    getSingleWorker(id) {
+    async getSingleWorker(id) {
 		if (!parse.isNumber(id)) {
 			return Promise.reject('Invalid identifier');
 		}
-		return this.getWorkers({ id }).then(items =>
-			items.data.length > 0 ? items.data[0] : {}
-		);
+		const items = await this.getWorkers({ id });
+        return items.data.length > 0 ? items.data[0] : {};
 	}
 
     getValidDataForInsert(data) {

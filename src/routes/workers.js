@@ -20,7 +20,7 @@ class WorkersRoute {
       );
       this.router.get(
         '/v1/workers/:id',
-        security.checkUserScope.bind(this, security.scope.READ_CUSTOMERS),
+        security.checkUserScope.bind(this, security.scope.READ_WORKERS),
         this.getSingleCustomer.bind(this)
       );
     }

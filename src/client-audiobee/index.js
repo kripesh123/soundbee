@@ -1,4 +1,5 @@
 import Workers from "./api/workers";
+import Tests from "./api/tests";
 import ApiClient from "./apiClient";
 
 export default class Client {
@@ -12,6 +13,7 @@ export default class Client {
 			token: this.apiToken
 		});
         this.workers = new Workers(apiClient);
+        this.tests = new Tests(apiClient);
     }
 
     static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email);
