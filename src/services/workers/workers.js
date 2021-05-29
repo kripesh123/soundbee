@@ -1,16 +1,12 @@
 import models from '../../lib/models'
 import parse from '../../lib/parse'
 
-export async function getAll() {
-    return await models.Worker.findAll({order: [['id', 'DESC']]})  
-}
-
 class WorkerService {
 
     getFilter(params = {}) {
 
 		const filter = {};
-		const id = params.id;
+		const id = parse.getNumberIfValid(params.id);
 
 		if (id) {
 			filter.id = id;

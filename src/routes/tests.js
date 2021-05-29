@@ -13,11 +13,11 @@ class TestsRoute {
         security.checkUserScope.bind(this, security.scope.READ_TESTS),
         this.getTests.bind(this)
       );
-    //   this.router.post(
-    //     '/v1/workers',
-    //     security.checkUserScope.bind(this, security.scope.WRITE_WORKERS),
-    //     this.addWorkers.bind(this)
-    //   );
+      this.router.post(
+        '/v1/tests',
+        security.checkUserScope.bind(this, security.scope.WRITE_TESTS),
+        this.addTests.bind(this)
+      );
       this.router.get(
         '/v1/tests/:id',
         security.checkUserScope.bind(this, security.scope.READ_TESTS),
@@ -42,11 +42,11 @@ class TestsRoute {
 			.catch(next);
     }
     
-    // addWorkers(req, res, next) {
-    //     WorkersService.addWorker(req.body)
-    //         .then(data => res.send(data))
-    //         .catch(next);
-    // }
+    addTests(req, res, next) {
+      TestsService.addTest(req.body)
+            .then(data => res.send(data))
+            .catch(next);
+    }
 }
 
 export default TestsRoute;

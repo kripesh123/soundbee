@@ -7,7 +7,7 @@ class SecurityUserService {
 
     async getUserRoles(params) {
 		const filter = {};
-		const id = params.id;
+		const id = parse.getNumberIfValid(params.id);
 		if (id) {
 			filter.userId = id;
 		}
