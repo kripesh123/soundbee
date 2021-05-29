@@ -13,7 +13,8 @@ module.exports = {
             },
             email: {
                 allowNull: false,
-                type: Sequelize.TEXT
+                type: Sequelize.TEXT,
+                unique: true
             },
             password: {
                 allowNull: false,

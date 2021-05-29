@@ -24,11 +24,11 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             content: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.TEXT
             },
             score:{
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             isActive:{

@@ -211,4 +211,10 @@ ajaxRouter.get('/tests/:id/questions/:questionId/answers', (req, res) => {
 	})
 })
 
+ajaxRouter.post('/takes', async (req, res, next) => {
+	api.takes.create(req.body).then(({status, json}) => {
+		res.status(status).send(json)
+	})
+})
+
 export default ajaxRouter;

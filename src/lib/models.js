@@ -9,7 +9,8 @@ const models = {
      Worker: db.import('../models/worker'),
      Test: db.import('../models/test'),
      TestQuestion: db.import('../models/testQuestion'),
-     TestAnswer: db.import('../models/testAnswer')
+     TestAnswer: db.import('../models/testAnswer'),
+     TestTake: db.import('../models/take')
 }
 
 Object.keys(models).forEach(modelName => {

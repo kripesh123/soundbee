@@ -19,6 +19,8 @@ const scope = {
 	WRITE_QUESTIONS: 'write:question',
 	READ_ANSWERS: 'read:answer',
 	WRITE_ANSWERS: 'write:answer',
+	READ_TAKES: 'read:take',
+	WRITE_TAKES: 'write:take',
 	READ_WORKERS: 'read:workers',
 	WRITE_WORKERS: 'write:workers',
 	READ_SITEMAP: 'read:sitemap',
