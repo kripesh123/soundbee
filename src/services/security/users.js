@@ -3,7 +3,7 @@ import models from '../../lib/models'
 import parse from '../../lib/parse'
 import AuthHeader from '../../lib/auth-header'
 
-class SecurityUserService {
+class SecurityUsersService {
 
     async getUserRoles(params) {
 		const filter = {};
@@ -71,4 +71,4 @@ class SecurityUserService {
     }
 }
 
-export default new SecurityUserService();
+export default new SecurityUsersService();

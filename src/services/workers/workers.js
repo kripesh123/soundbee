@@ -1,7 +1,7 @@
 import models from '../../lib/models'
 import parse from '../../lib/parse'
 
-class WorkerService {
+class WorkersService {
 
     getFilter(params = {}) {
 
@@ -81,4 +81,4 @@ class WorkerService {
     }
 }
 
-export default new WorkerService();
+export default new WorkersService();

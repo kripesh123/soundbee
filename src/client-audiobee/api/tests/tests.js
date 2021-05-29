@@ -1,4 +1,6 @@
-export default class Workers {
+import testQuestions from "../../../services/tests/testQuestions";
+
+export default class Tests {
     constructor(client) {
         this.client = client;
         this.resourceUrl = '/tests'
@@ -13,6 +15,10 @@ export default class Workers {
     }
     
     retrieve(id, filter) {
-		return this.client.get(`${this.resourceUrl}/${id}`, filter);
-	}
+    return this.client.get(`${this.resourceUrl}/${id}`, filter);
+    }
+
+    testQuestions(id, filter) {
+      return this.client.get(`${this.resourceUrl}/${id}/`, filter);
+    }
 }

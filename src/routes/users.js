@@ -1,4 +1,4 @@
-import SecurityUserService from '../services/security/users'
+import SecurityUsersService from '../services/security/users'
 class SecurityUsersRoute {
     constructor(router) {
 		this.router = router;
@@ -11,7 +11,7 @@ class SecurityUsersRoute {
 
     async sendUserToken(req, res, next) {
 		try {
-			await SecurityUserService.sendUserToken(req, res, next);
+			await SecurityUsersService.sendUserToken(req, res, next);
 		} catch (err) {
 			return next(err);
 		}

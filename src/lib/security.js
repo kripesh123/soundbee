@@ -15,6 +15,8 @@ const scope = {
 	DASHBOARD: 'dashboard',
 	READ_TESTS: 'read:test',
 	WRITE_TESTS: 'write:test',
+	READ_QUESTIONS: 'read:question',
+	WRITE_QUESTIONS: 'write:question',
 	READ_WORKERS: 'read:workers',
 	WRITE_WORKERS: 'write:workers',
 	READ_SITEMAP: 'read:sitemap',

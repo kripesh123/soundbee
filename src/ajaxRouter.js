@@ -199,4 +199,10 @@ ajaxRouter.get('/tests/:id', (req, res) => {
 	);
 });
 
+ajaxRouter.get('/tests/:id/questions', (req, res) => {
+	api.questions.retrieve(req.params.id).then(({status, json}) =>
+		res.status(status).send(json)
+	);
+})
+
 export default ajaxRouter;

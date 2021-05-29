@@ -1,5 +1,6 @@
 import Workers from "./api/workers";
-import Tests from "./api/tests";
+import Tests from "./api/tests/tests";
+import TestQuestions from "./api/tests/questions";
 import ApiClient from "./apiClient";
 
 export default class Client {
@@ -14,6 +15,7 @@ export default class Client {
 		});
         this.workers = new Workers(apiClient);
         this.tests = new Tests(apiClient);
+        this.questions = new TestQuestions(apiClient);
     }
 
     static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email);
