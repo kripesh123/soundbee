@@ -205,4 +205,10 @@ ajaxRouter.get('/tests/:id/questions', (req, res) => {
 	);
 })
 
+ajaxRouter.get('/tests/:id/questions/:questionId/answers', (req, res) => {
+	api.answers.retrieve(req.params.id, req.params.questionId).then(({status, json}) => {
+		res.status(status).send(json)
+	})
+})
+
 export default ajaxRouter;

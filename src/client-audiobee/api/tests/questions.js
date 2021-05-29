@@ -1,5 +1,3 @@
-import testQuestions from "../../../services/tests/testQuestions";
-
 export default class Questions {
     constructor(client) {
         this.client = client;
@@ -10,7 +8,7 @@ export default class Questions {
       return this.client.get(`${this.resourceUrl}/${id}/questions`, filter);
     }
 
-    create(data) {
+    create(id, data) {
 		return this.client.post(`${this.resourceUrl}/${id}/questions`, data);
     }
 }

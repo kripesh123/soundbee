@@ -1,5 +1,3 @@
-import testQuestions from "../../../services/tests/testQuestions";
-
 export default class Tests {
     constructor(client) {
         this.client = client;
