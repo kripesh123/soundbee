@@ -33,6 +33,9 @@ class TestTakesService {
                 limit,
                 offset,
                 order: [['id', 'DESC']],
+                include: [
+                    { model: models.TestTakeAnswer, as: 'answers' },
+                ]
             }),
             models.TestTake.count()
         ]);
@@ -92,7 +95,7 @@ class TestTakesService {
         take.workerId = parse.getNumberIfValid(data.workerId)
         take.content = parse.getString(data.content);
         take.score = parse.getNumberIfValid(data.score);
-        take.isActive = Boolean(data.isActive);
+        take.isActive = Boolean(data.isActive)  || true;
         return take;
     }
 }

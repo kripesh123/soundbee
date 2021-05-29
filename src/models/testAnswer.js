@@ -22,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
   TestAnswer.associate = function(models) {
     TestAnswer.belongsTo(models.Test)
     TestAnswer.belongsTo(models.TestQuestion)
+    TestAnswer.belongsTo(models.TestTakeAnswer)
   }
     return TestAnswer
 }

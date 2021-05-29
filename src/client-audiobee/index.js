@@ -3,6 +3,7 @@ import Tests from "./api/tests/tests";
 import TestQuestions from "./api/tests/questions";
 import TestAnswers from "./api/tests/answers";
 import TestTakes from "./api/tests/takes";
+import TestTakeAnswers from "./api/tests/takeAnswers";
 import ApiClient from "./apiClient";
 
 export default class Client {
@@ -20,6 +21,7 @@ export default class Client {
         this.questions = new TestQuestions(apiClient);
         this.answers = new TestAnswers(apiClient);
         this.takes = new TestTakes(apiClient);
+        this.takeAnswers = new TestTakeAnswers(apiClient);
     }
 
     static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email);

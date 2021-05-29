@@ -22,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
   TestTake.associate = function(models) {
     TestTake.belongsTo(models.Test)
     TestTake.belongsTo(models.Worker)
+    TestTake.hasMany(models.TestTakeAnswer, {as: 'answers'})
   }
     return TestTake
 }

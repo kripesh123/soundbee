@@ -217,4 +217,10 @@ ajaxRouter.post('/takes', async (req, res, next) => {
 	})
 })
 
+ajaxRouter.post('/takeAnswers', async (req, res, next) => {
+	api.takeAnswers.create(req.body).then(({status, json}) => {
+		res.status(status).send(json)
+	})
+})
+
 export default ajaxRouter;
