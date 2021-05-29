@@ -1,6 +1,7 @@
 import security from '../lib/security';
 import TestsService from '../services/tests/tests';
 import TestQuestionsService from '../services/tests/testQuestions';
+import TestAnswersService from '../services/tests/testAnswers';
 
 class TestsRoute {
     constructor(router) {
@@ -34,6 +35,33 @@ class TestsRoute {
         security.checkUserScope.bind(this, security.scope.READ_QUESTIONS),
         this.getQuestions.bind(this)
       );
+
+      this.router.post(
+        '/v1/tests/:id/questions/:questionId/answers',
+        security.checkUserScope.bind(this, security.scope.WRITE_ANSWERS),
+        this.postAnswers.bind(this)
+      );
+      this.router.get(
+        '/v1/tests/:id/questions/:questionId/answers',
+        security.checkUserScope.bind(this, security.scope.READ_ANSWERS),
+        this.getAnswers.bind(this)
+      );
+    }
+
+    postAnswers(req, res, next) {
+      TestAnswersService.addAnswers(req.params.id, req.params.questionId, req.body)
+        .then(data => res.send(data))
+        .catch(next);
+    }
+
+    getAnswers(req, res, next) {
+      TestAnswersService.getAnswersForQuestion(req.params.id, req.params.questionId)
+        .then(data => {
+          if(data) {
+            return res.send(data);
+          }
+          return res.status(404).end();
+        })
     }
 
     postQuestions(req, res, next) {

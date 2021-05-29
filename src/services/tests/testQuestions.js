@@ -19,7 +19,7 @@ class TestQuestionsService {
 		return filter;
 	}
 
-    async getTestQuestion(params = {}) {
+    async getTestQuestions(params = {}) {
         const filter = this.getFilter(params);
         const limit = parse.getNumberIfPositive(params.limit) || 100;
         const offset = parse.getNumberIfPositive(params.offset) || 0;
@@ -49,7 +49,16 @@ class TestQuestionsService {
 
     async addQuestions(id ,data) {
         const question = this.getValidDataForInsert(id ,data);
-       
+       // does test exist
+        const testCount = await models.Test.findAndCountAll({
+            where: { 
+                id
+            }
+        });
+        if (testCount.count <= 0) {
+            return Promise.reject('Test does not exist.');
+        }
+
         const insertResponse = await models.TestQuestion.create(question);
         const newTestQuestionId = insertResponse.id;
         const newTestQuestion = await this.getSingleTestQuestion(newTestQuestionId)
@@ -61,7 +70,7 @@ class TestQuestionsService {
 		if (!parse.isNumber(id)) {
 			return Promise.reject('Invalid identifier');
 		}
-		const items = await this.getTestQuestion({ id });
+		const items = await this.getTestQuestions({ id });
         return items.data.length > 0 ? items.data[0] : {};
 	}
 

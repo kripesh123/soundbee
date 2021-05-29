@@ -2,7 +2,7 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert('test_answers', [
+        return queryInterface.bulkInsert('answers', [
             { testId:1, questionId: 1, content:'Berlin', isCorrect:true, isActive:true, createdAt: new Date(), updatedAt: new Date()},
             { testId:1, questionId: 1, content:'Hamburg', isCorrect:false, isActive:true, createdAt: new Date(), updatedAt: new Date()},
             { testId:1, questionId: 1, content:'Munich (München)', isCorrect:false, isActive:true, createdAt: new Date(), updatedAt: new Date()},
@@ -75,7 +75,7 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete('test_answers', null, {})
+        return queryInterface.bulkDelete('answers', null, {})
     }
 }
 

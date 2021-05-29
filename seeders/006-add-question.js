@@ -2,7 +2,7 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert('test_questions', [
+        return queryInterface.bulkInsert('questions', [
             { testId:1, content:'Capital City of Germany?', score: 5, isActive:true, createdAt: new Date(), updatedAt: new Date()},
             { testId:1, content:'Capital City of Estonia?', score: 5, isActive:true, createdAt: new Date(), updatedAt: new Date()},
             { testId:1, content:'Capital City of Bhutan?', score: 5, isActive:true, createdAt: new Date(), updatedAt: new Date()},
@@ -24,7 +24,7 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete('test_questions', null, {})
+        return queryInterface.bulkDelete('questions', null, {})
     }
 }
 

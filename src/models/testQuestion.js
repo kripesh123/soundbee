@@ -2,7 +2,7 @@
 
 // Workers
 module.exports = function(sequelize, DataTypes) {
-    let TestQuestion = sequelize.define('test_questions', {
+    let TestQuestion = sequelize.define('questions', {
         testId: {
             type: DataTypes.INTEGER
         },
