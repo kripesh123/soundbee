@@ -17,7 +17,9 @@ export default class Client {
         const apiClient = new ApiClient({
 			baseUrl: this.apiBaseUrl,
 			token: this.apiToken
-		});
+        });
+        
+        const ajaxClient = new AjaxClient({ baseUrl: this.ajaxBaseUrl });
         this.workers = new Workers(apiClient);
         this.tests = new Tests(apiClient);
         this.questions = new TestQuestions(apiClient);
