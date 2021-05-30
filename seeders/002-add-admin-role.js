@@ -8,6 +8,12 @@ module.exports = {
                 isActive:true,
                 createdAt: new Date(),
                 updatedAt: new Date()
+            },
+            {
+                name: 'read:take_answer',
+                isActive:true,
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         ])
     },
