@@ -4,9 +4,10 @@ import TestQuestions from "./api/tests/questions";
 import TestAnswers from "./api/tests/answers";
 import TestTakes from "./api/tests/takes";
 import TestTakeAnswers from "./api/tests/takeAnswers";
-import ApiClient from "./apiClient";
 import AjaxLogin from "./api/ajaxLogin";
 import AjaxRegister from "./api/ajaxRegister";
+import ApiClient from "./apiClient";
+import AjaxClient from "./ajaxClient";
 
 export default class Client {
     constructor(options = {}) {
@@ -28,7 +29,7 @@ export default class Client {
         this.takeAnswers = new TestTakeAnswers(apiClient);
         
         this.ajax = {};
-        this.ajax.tests = new new Tests(ajaxClient);
+        this.ajax.tests = new Tests(ajaxClient);
         this.ajax.login = new AjaxLogin(ajaxClient);
         this.ajax.register = new AjaxRegister(ajaxClient);
         this.ajax.questions = new TestQuestions(ajaxClient);
