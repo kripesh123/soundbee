@@ -1,0 +1,12 @@
+Implementation Details:
+
+    Database Change:\
+        Alter TestReview table.
+        Add (superAdminReview), (superAdminRemarks) Columns in testReview.
+        Add super admin in user table with role super_admin.
+
+    Backend Change:
+        Create an API to fetch TestReview done by admin.
+        Super admin can view PASSED tests(reviewed by admin) from TestReview Table.
+        Create an API to update TestReview done by admin.
+        Super admin can mark them as PASSED, FAILED or REDO(superAdminReview) with comment(superAdminRemarks).
