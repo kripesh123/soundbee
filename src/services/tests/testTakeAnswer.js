@@ -1,5 +1,8 @@
 import models from '../../lib/models'
 import parse from '../../lib/parse'
+import TestAnswersService from '../../services/tests/testAnswers'
+import TestTakesService from '../../services/tests/testTake'
+import TestQuestionsService from '../../services/tests/testQuestions'
 
 class TestTakeAnswerService {
 
@@ -73,6 +76,25 @@ class TestTakeAnswerService {
         }
         const insertResponse = await models.TestTakeAnswer.create(takeAnswer);
         const newTestTakeAnswerId = insertResponse.id;
+        const answerId = insertResponse.answerId;
+        const takeId = insertResponse.takeId;
+        const questionId = insertResponse.questionId;
+        const testAnswer = await TestAnswersService.getSingleTestAnswer(answerId);
+        if(testAnswer.isCorrect) {
+            const take = await TestTakesService.getSingleTestTake(takeId);
+            const testQuestion = await TestQuestionsService.getSingleTestQuestion(questionId);
+            const finalScore = take.score + testQuestion.score;
+            const passmark = testQuestion.score/2;
+            const content = finalScore > passmark ? 'PASS' : 'FAIL';
+            const updateTake = {
+                id: takeId,
+                score: finalScore,
+                content
+            }
+            TestTakesService.updateTestTake(updateTake)
+        }   
+       
+
         const newTestTakeAnswer = await this.getSingleTestTakeAnswer(newTestTakeAnswerId)
         return newTestTakeAnswer;
 

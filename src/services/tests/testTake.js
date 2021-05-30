@@ -81,6 +81,17 @@ class TestTakesService {
 
     }
 
+    async updateTestTake({id, score, content}) {
+        return models.TestTake.update(
+            {
+                score, 
+                content
+            },
+            {where: {id}}
+        )
+    }
+
+
     async getSingleTestTake(id) {
 		if (!parse.isNumber(id)) {
 			return Promise.reject('Invalid identifier');
