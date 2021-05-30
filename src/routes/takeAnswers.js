@@ -10,17 +10,17 @@ class TakeAnswersRoute {
     registerRoutes() {
       this.router.get(
         '/v1/takeAnswers',
-        security.checkUserScope.bind(this, security.scope.READ_TAKES),
+        security.checkUserScope.bind(this, security.scope.READ_TAKE_ANSWERS),
         this.getTakeAnswers.bind(this)
       );
       this.router.post(
         '/v1/takeAnswers',
-        security.checkUserScope.bind(this, security.scope.WRITE_TAKES),
+        security.checkUserScope.bind(this, security.scope.WRITE_TAKE_ANSWERS),
         this.addTakeAnswers.bind(this)
       );
       this.router.get(
         '/v1/takeAnswers/:id',
-        security.checkUserScope.bind(this, security.scope.READ_TAKES),
+        security.checkUserScope.bind(this, security.scope.READ_TAKE_ANSWERS),
         this.getSingleTakeAnswer.bind(this)
       );
 
