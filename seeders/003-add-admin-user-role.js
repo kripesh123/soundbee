@@ -12,7 +12,14 @@ module.exports = {
             },
             {
                 userId:2,
-                roleId:1,
+                roleId:11,
+                isActive:true,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                userId:2,
+                roleId:12,
                 isActive:true,
                 createdAt: new Date(),
                 updatedAt: new Date()

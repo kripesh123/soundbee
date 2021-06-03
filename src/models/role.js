@@ -7,5 +7,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
     })
+    Role.associate = function(models) {
+        Role.belongsToMany(models.User, { through: models.UserRole})
+    }
     return Role;
 }

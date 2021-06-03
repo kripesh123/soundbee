@@ -16,6 +16,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN
         }
     })
-
+    User.associate = function(models) {
+        User.belongsToMany(models.Role, { through: models.UserRole})
+    }
     return User;
 }

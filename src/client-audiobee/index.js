@@ -6,6 +6,7 @@ import TestTakes from "./api/tests/takes";
 import TestTakeAnswers from "./api/tests/takeAnswers";
 import AjaxLogin from "./api/ajaxLogin";
 import AjaxRegister from "./api/ajaxRegister";
+import AjaxAccount from "./api/ajaxAccount";
 import ApiClient from "./apiClient";
 import AjaxClient from "./ajaxClient";
 
@@ -36,6 +37,7 @@ export default class Client {
         this.ajax.answers = new TestAnswers(ajaxClient);
         this.ajax.takes = new TestTakes(ajaxClient);
         this.ajax.takeAnswers = new TestTakeAnswers(ajaxClient);
+        this.ajax.accounts = new AjaxAccount(ajaxClient);
     }
 
     static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email);
