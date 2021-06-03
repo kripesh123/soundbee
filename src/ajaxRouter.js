@@ -28,7 +28,8 @@ ajaxRouter.post('/register', async (req, res, next) => {
     const data = {
         status: false,
         isRightToken: true,
-        isWorkerSaved: false
+		isWorkerSaved: false,
+		warnMessage : ''
     };
     const filter = {
         email: req.body.email
@@ -76,7 +77,7 @@ ajaxRouter.post('/register', async (req, res, next) => {
 			filter.email = eMail;
 			await api.workers.list(filter).then(({ status, json }) => {
 				if (json.data.length > 0) {
-					// data.isWorkerSaved = true;
+					data.warnMessage = 'Email Already Associate with User. Or did you forgot your password?';
 					res.status(status).send(data);
 					return false;
 				}
@@ -122,6 +123,7 @@ ajaxRouter.post('/register', async (req, res, next) => {
 	if (!requestToken) {
 		await api.workers.list(filter).then(({ status, json }) => {
 			if (json.data.length > 0) {
+				data.warnMessage = 'Email Already Associate with User. Or did you forgot your password?';
 				res.status(status).send(data);
 				return false;
 			}
@@ -130,6 +132,33 @@ ajaxRouter.post('/register', async (req, res, next) => {
 		});
 	}
 })
+
+ajaxRouter.post('/worker-account', async (req, res, next) => {
+	const workerData = {
+		token: '',
+		authenticated: false,
+		worker_settings: null,
+		warnMessage : ''
+	};
+	if (req.body.token) {
+		workerData.token = AuthHeader.decodeUserLoginAuth(req.body.token);
+		console.log(workerData.token)
+		if (workerData.token.userId !== undefined) {
+			const workerID = JSON.stringify(workerData.token.userId).replace(
+				/["']/g,
+				''
+			);
+			await api.workers.retrieve(workerID).then(({ status, json }) => {
+				workerData.worker_settings = json;
+				workerData.worker_settings.password = '*******';
+				workerData.token = AuthHeader.encodeUserLoginAuth(workerID);
+				let objJsonB64 = JSON.stringify(workerData);
+				objJsonB64 = Buffer.from(objJsonB64).toString('base64');
+				return res.status(status).send(JSON.stringify(objJsonB64));	
+			});
+		}
+	}
+});
 
 ajaxRouter.post('/login', async (req, res, next) => {
 	const workerData = {
@@ -212,15 +241,33 @@ ajaxRouter.get('/tests/:id/questions/:questionId/answers', (req, res) => {
 })
 
 ajaxRouter.post('/takes', async (req, res, next) => {
-	api.takes.create(req.body).then(({status, json}) => {
-		res.status(status).send(json)
-	})
+	const takeData = req.body;
+	if (takeData.token) {
+		const token = AuthHeader.decodeUserLoginAuth(takeData.token);
+		const workerId = JSON.stringify(token.userId).replace(/["']/g, '');
+		takeData.workerId = workerId;
+		if (takeData.workerId !== undefined) {
+			api.takes.create(takeData).then(({status, json}) => {
+				res.status(status).send(json)
+			})
+		} 
+	}
+	else {
+		res.status(403).send('No Authorization')
+	}
 })
 
 ajaxRouter.post('/takeAnswers', async (req, res, next) => {
-	api.takeAnswers.create(req.body).then(({status, json}) => {
-		res.status(status).send(json)
-	})
+	if (req.body.token) {
+		const token = await AuthHeader.decodeUserLoginAuth(req.body.token);
+		if (token.userId !== undefined) {
+			api.takeAnswers.create(req.body).then(({status, json}) => {
+				res.status(status).send(json)
+			})
+		}	
+	} else {
+		res.status(403).send('No Authorization')
+	}
 })
 
 export default ajaxRouter;

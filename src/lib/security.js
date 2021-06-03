@@ -76,7 +76,7 @@ const applyMiddleware = app => {
 			expressJwt({
 				secret: settings.jwtSecretKey,
                 isRevoked: checkTokenInBlacklistCallback,
-                algorithms: ['RS256']
+                algorithms: ['HS256']
 			}).unless({ path: PATHS_WITH_OPEN_ACCESS })
 		);
 	}
