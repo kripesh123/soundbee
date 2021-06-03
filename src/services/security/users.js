@@ -41,7 +41,7 @@ class SecurityUsersService {
 			// convert hour to sec
 			jwtOptions.expiresIn = 1 * 60 * 60;
             if (out) {
-                userData.token = AuthHeader.encodeUserLoginAuth(payload, jwtOptions);
+                userData.token = AuthHeader.encodeAdminLoginAuth(payload, jwtOptions);
                 userData.authenticated = true;
                 userData.loggedin_failed = false;
                 let objJsonB64 = JSON.stringify(userData);

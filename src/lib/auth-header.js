@@ -3,8 +3,12 @@ import serverConfigs from '../../config/server';
 
 const cert = serverConfigs.jwtSecretKey;
 class AuthHeader {
-	encodeUserLoginAuth(userId, options) {
-		return jwt.sign({ userId }, cert, options);
+	encodeUserLoginAuth(userId) {
+		return jwt.sign({ userId }, cert);
+	}
+
+	encodeAdminLoginAuth(payload, options) {
+		return jwt.sign(payload, cert, options);
 	}
 
 	decodeUserLoginAuth(token) {
